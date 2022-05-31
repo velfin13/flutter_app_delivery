@@ -27,6 +27,20 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       getPages: [GetPage(name: "/", page: () => const LoginPage())],
       navigatorKey: Get.key,
+      theme: ThemeData(
+          primaryColor: Colors.amber,
+          colorScheme: const ColorScheme(
+              brightness: Brightness.light,
+              onBackground: Colors.grey,
+              secondary: Colors.amberAccent,
+              primary: Colors.amber,
+              onPrimary: Colors.grey,
+              surface: Colors.grey,
+              onSurface: Colors.grey,
+              error: Colors.grey,
+              onError: Colors.grey,
+              background: Colors.grey,
+              onSecondary: Colors.grey)),
     );
   }
 }

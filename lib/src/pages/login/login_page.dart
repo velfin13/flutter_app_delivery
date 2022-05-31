@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -14,6 +16,7 @@ class LoginPage extends StatelessWidget {
           //El STACK Posisiona elementos uno encima del otro
           children: [
             _backgraundCover(context),
+            _boxForm(context),
             Column(
               //el COLUMN posisiona los elementos de forma vertical
               children: [_imagenCover(), _textAppName()],
@@ -35,6 +38,75 @@ class LoginPage extends StatelessWidget {
       "Delivery Mysql",
       style: TextStyle(
           fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+    );
+  }
+
+  Widget _boxForm(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.35,
+            left: 50,
+            right: 50),
+        decoration: const BoxDecoration(boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: Colors.black54, blurRadius: 15, offset: Offset(0, 0.75))
+        ], color: Colors.white),
+        height: MediaQuery.of(context).size.height * 0.45,
+        child: SingleChildScrollView(
+            child: Column(
+          children: [
+            _TextYourInfo(),
+            _TextFielEmail(),
+            _TextFielPassword(),
+            _buttonLogin()
+          ],
+        )));
+  }
+
+  Widget _TextFielEmail() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 40),
+      child: const TextField(
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+            hintText: "Correo Electronico", prefixIcon: Icon(Icons.email)),
+      ),
+    );
+  }
+
+  Widget _TextFielPassword() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 40),
+      child: const TextField(
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: true,
+          decoration: InputDecoration(
+            hintText: "Contraseña",
+            prefixIcon: Icon(Icons.lock),
+          )),
+    );
+  }
+
+  Widget _buttonLogin() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      child: ElevatedButton(
+          onPressed: () {},
+          child: const Text(
+            "Login",
+            style: TextStyle(color: Colors.black),
+          )),
+    );
+  }
+
+  Widget _TextYourInfo() {
+    return Container(
+      margin: const EdgeInsets.only(top: 40, bottom: 50),
+      child: const Text(
+        "Ingresa tu informacion",
+        style: TextStyle(color: Colors.black),
+      ),
     );
   }
 
