@@ -1,9 +1,13 @@
-// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace
+// ignore_for_file: must_be_immutable, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import './login_controller.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginController con = Get.put(LoginController());
+
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +59,15 @@ class LoginPage extends StatelessWidget {
         child: SingleChildScrollView(
             child: Column(
           children: [
-            _TextYourInfo(),
-            _TextFielEmail(),
-            _TextFielPassword(),
+            _textYourInfo(),
+            _textFielEmail(),
+            _textFielPassword(),
             _buttonLogin()
           ],
         )));
   }
 
-  Widget _TextFielEmail() {
+  Widget _textFielEmail() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
       child: const TextField(
@@ -74,7 +78,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _TextFielPassword() {
+  Widget _textFielPassword() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
       child: const TextField(
@@ -100,7 +104,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _TextYourInfo() {
+  Widget _textYourInfo() {
     return Container(
       margin: const EdgeInsets.only(top: 40, bottom: 50),
       child: const Text(
@@ -113,16 +117,19 @@ class LoginPage extends StatelessWidget {
   Widget _textDontHaveSccount() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Text(
+      children: [
+        const Text(
           "No tienes cuenta",
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        SizedBox(width: 7),
-        Text(
-          "Registrate aqui",
-          style: TextStyle(
-              color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 17),
+        const SizedBox(width: 7),
+        GestureDetector(
+          onTap: () => con.goToRegisterPage(),
+          child: const Text(
+            "Registrate aqui",
+            style: TextStyle(
+                color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 17),
+          ),
         )
       ],
     );
