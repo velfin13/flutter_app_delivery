@@ -1,8 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app_delivery/src/pages/register/register_controller.dart';
 import 'package:get/get.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  RegisterController con = Get.put(RegisterController());
+
+  RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +63,10 @@ class RegisterPage extends StatelessWidget {
   Widget _textFielEmail() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+        controller: con.emailControler,
         keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Correo Electronico", prefixIcon: Icon(Icons.email)),
       ),
     );
@@ -69,10 +75,11 @@ class RegisterPage extends StatelessWidget {
   Widget _textFielNombre() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+        controller: con.nombreControler,
         keyboardType: TextInputType.text,
-        decoration:
-            InputDecoration(hintText: "Nombre", prefixIcon: Icon(Icons.person)),
+        decoration: const InputDecoration(
+            hintText: "Nombre", prefixIcon: Icon(Icons.person)),
       ),
     );
   }
@@ -80,9 +87,10 @@ class RegisterPage extends StatelessWidget {
   Widget _textFielLastName() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+        controller: con.apellidoControler,
         keyboardType: TextInputType.text,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Apellido", prefixIcon: Icon(Icons.person)),
       ),
     );
@@ -91,9 +99,10 @@ class RegisterPage extends StatelessWidget {
   Widget _textFielPhone() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+        controller: con.telefonnoControler,
         keyboardType: TextInputType.phone,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Telefono", prefixIcon: Icon(Icons.phone)),
       ),
     );
@@ -102,10 +111,11 @@ class RegisterPage extends StatelessWidget {
   Widget _textFielPassword() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+          controller: con.passwordControler,
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: "Contraseña",
             prefixIcon: Icon(Icons.lock),
           )),
@@ -115,10 +125,11 @@ class RegisterPage extends StatelessWidget {
   Widget _textFielConfirmPassword() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+          controller: con.confirmPasswordControler,
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: "Confirmar Contraseña",
             prefixIcon: Icon(Icons.lock),
           )),
@@ -130,7 +141,7 @@ class RegisterPage extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () => con.register(),
           child: const Text(
             "Register",
             style: TextStyle(color: Colors.black),

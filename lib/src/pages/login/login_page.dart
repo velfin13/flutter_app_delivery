@@ -70,9 +70,10 @@ class LoginPage extends StatelessWidget {
   Widget _textFielEmail() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+        controller: con.emailControler,
         keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Correo Electronico", prefixIcon: Icon(Icons.email)),
       ),
     );
@@ -81,10 +82,11 @@ class LoginPage extends StatelessWidget {
   Widget _textFielPassword() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40),
-      child: const TextField(
+      child: TextField(
+          controller: con.passwordControler,
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: "Contraseña",
             prefixIcon: Icon(Icons.lock),
           )),
@@ -96,7 +98,7 @@ class LoginPage extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () => con.login(),
           child: const Text(
             "Login",
             style: TextStyle(color: Colors.black),
