@@ -1,7 +1,7 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../providers/usersProviders.dart';
+import '../../models/user.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailControler = TextEditingController();
@@ -11,7 +11,9 @@ class RegisterController extends GetxController {
   TextEditingController passwordControler = TextEditingController();
   TextEditingController confirmPasswordControler = TextEditingController();
 
-  void register() {
+  UserProviders userProviders = UserProviders();
+
+  void register() async {
     String email = emailControler.text.trim();
     String nombre = nombreControler.text;
     String apellido = apellidoControler.text;
@@ -21,7 +23,17 @@ class RegisterController extends GetxController {
 
     if (isValidForm(
         email, nombre, apellido, telefono, password, confirmPassword)) {
-      Get.snackbar("Formulario valido", "Campos correctos");
+      User user = User(
+          email: email,
+          name: nombre,
+          lastname: apellido,
+          phone: telefono,
+          password: password);
+
+      Response response = await userProviders.create(user);
+
+      print(response.body);
+      // Get.snackbar("Formulario valido", "Campos correctos");
     }
   }
 
