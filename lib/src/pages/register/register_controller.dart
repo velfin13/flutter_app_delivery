@@ -32,7 +32,6 @@ class RegisterController extends GetxController {
 
       Response response = await userProviders.create(user);
 
-      print(response.body);
       // Get.snackbar("Formulario valido", "Campos correctos");
     }
   }

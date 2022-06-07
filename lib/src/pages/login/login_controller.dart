@@ -1,20 +1,29 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app_delivery/src/models/response_api.dart';
+import '../../../src/providers/usersProviders.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailControler = TextEditingController();
   TextEditingController passwordControler = TextEditingController();
 
+  UserProviders userProviders = UserProviders();
+
   void goToRegisterPage() {
     Get.toNamed("/register");
   }
 
-  void login() {
+  void login() async {
     String email = emailControler.text.trim();
     String password = passwordControler.text.trim();
 
     if (isValidForm(email, password)) {
-      Get.snackbar("Formulario valido", "Campos correctos");
+      ResponseApi responseApi = await userProviders.login(email, password);
+      if (responseApi.success == true) {
+        Get.snackbar("Login exitoso", responseApi.message ?? "");
+      } else {
+        Get.snackbar("Error de login", responseApi.message ?? "");
+      }
     }
   }
 
