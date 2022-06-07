@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
+import '../../src/models/rol.dart';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
@@ -15,17 +16,18 @@ class User {
   String? phone;
   String? password;
   String? sesion_token;
+  List<Rol>? roles = [];
 
-  User({
-    this.id,
-    this.email,
-    this.name,
-    this.image,
-    this.lastname,
-    this.phone,
-    this.password,
-    this.sesion_token,
-  });
+  User(
+      {this.id,
+      this.email,
+      this.name,
+      this.image,
+      this.lastname,
+      this.phone,
+      this.password,
+      this.sesion_token,
+      this.roles});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
@@ -36,6 +38,10 @@ class User {
         phone: json["phone"],
         password: json["password"],
         sesion_token: json["sesion_token"],
+        roles: json["roles"] == null
+            ? []
+            : List<Rol>.from(
+                    json["roles"].map((model) => (Rol.fromJson(model)))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,5 +53,6 @@ class User {
         "phone": phone,
         "password": password,
         "sesion_token": sesion_token,
+        "roles": roles,
       };
 }
