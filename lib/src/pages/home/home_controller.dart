@@ -5,7 +5,7 @@ import '../../../src/models/user.dart';
 class HomeController extends GetxController {
   User user = User.fromJson(GetStorage().read("user") ?? {});
   HomeController() {
-    // print(user.toJson());
+    print(user.toJson());
   }
 
   void logOut() {
