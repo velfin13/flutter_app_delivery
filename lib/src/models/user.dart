@@ -1,6 +1,4 @@
-// To parse this JSON data, do
-//
-//     final user = userFromJson(jsonString);
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
 
@@ -16,6 +14,7 @@ class User {
   String? lastname;
   String? phone;
   String? password;
+  String? sesion_token;
 
   User({
     this.id,
@@ -25,6 +24,7 @@ class User {
     this.lastname,
     this.phone,
     this.password,
+    this.sesion_token,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -35,6 +35,7 @@ class User {
         lastname: json["lastname"],
         phone: json["phone"],
         password: json["password"],
+        sesion_token: json["sesion_token"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -45,5 +46,6 @@ class User {
         "lastname": lastname,
         "phone": phone,
         "password": password,
+        "sesion_token": sesion_token,
       };
 }

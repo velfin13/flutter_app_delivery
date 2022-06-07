@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesita permisos para acceso a galeria</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Necesita permisos para acceso a la camara</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Necesita permisos para acceso al microfono</string>
 	<key>CFBundleDisplayName</key>
 	<string>Flutter App Delivery</string>
 	<key>CFBundleExecutable</key>

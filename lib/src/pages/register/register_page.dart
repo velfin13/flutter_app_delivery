@@ -20,7 +20,7 @@ class RegisterPage extends StatelessWidget {
           children: [
             _backgraundCover(context),
             _boxForm(context),
-            _imagenUser(),
+            _imagenUser(context),
             _backButton()
           ],
         ));
@@ -164,19 +164,25 @@ class RegisterPage extends StatelessWidget {
     ));
   }
 
-  Widget _imagenUser() {
+  Widget _imagenUser(BuildContext context) {
     return SafeArea(
         child: Container(
       margin: const EdgeInsets.only(top: 25),
       alignment: Alignment.topCenter,
       child: GestureDetector(
-        onTap: () {},
-        child: const CircleAvatar(
-          backgroundImage: AssetImage("assets/img/user_profile.png"),
-          radius: 60,
-          backgroundColor: Colors.white,
-        ),
-      ),
+          onTap: () {
+            con.showAlertDialog(context);
+          },
+          child: GetBuilder<RegisterController>(
+            builder: (value) => CircleAvatar(
+              backgroundImage: con.imageFile != null
+                  ? FileImage(con.imageFile!)
+                  : const AssetImage("assets/img/user_profile.png")
+                      as ImageProvider,
+              radius: 60,
+              backgroundColor: Colors.white,
+            ),
+          )),
     ));
   }
 
