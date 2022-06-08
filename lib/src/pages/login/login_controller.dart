@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_delivery/src/models/response_api.dart';
+import 'package:flutter_app_delivery/src/models/user.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../src/providers/usersProviders.dart';
 import 'package:get/get.dart';
@@ -22,16 +23,21 @@ class LoginController extends GetxController {
       ResponseApi responseApi = await userProviders.login(email, password);
       if (responseApi.success == true) {
         GetStorage().write("user", responseApi.data);
-        // goToHomePage();
-        goToRolesPage();
+        User userSession = User.fromJson(GetStorage().read("user") ?? {});
+
+        if (userSession.roles!.length > 1) {
+          goToRolesPage();
+        } else {
+          goToClientProductListPage();
+        }
       } else {
         Get.snackbar("Error de login", responseApi.message ?? "");
       }
     }
   }
 
-  void goToHomePage() {
-    Get.offNamedUntil('/home', (route) => false);
+  void goToClientProductListPage() {
+    Get.offNamedUntil('/client/products/list', (route) => false);
   }
 
   void goToRolesPage() {

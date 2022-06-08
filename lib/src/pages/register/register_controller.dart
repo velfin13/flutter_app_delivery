@@ -47,7 +47,7 @@ class RegisterController extends GetxController {
         ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
         if (responseApi.success == true) {
           GetStorage().write("user", responseApi.data);
-          goToHomePage();
+          goToClientProductListPage();
         } else {
           Get.snackbar("Error", "Error al crear usuario");
         }
@@ -55,8 +55,8 @@ class RegisterController extends GetxController {
     }
   }
 
-  void goToHomePage() {
-    Get.offNamedUntil('/home', (route) => false);
+  void goToClientProductListPage() {
+    Get.offNamedUntil('/client/products/list', (route) => false);
   }
 
   bool isValidForm(String email, String nombre, String apellido,

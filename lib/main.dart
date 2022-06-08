@@ -6,6 +6,9 @@ import './src/pages/login/login_page.dart';
 import './src/pages/register/register_page.dart';
 import './src/pages/home/home_page.dart';
 import './src/pages/roles/roles_page.dart';
+import './src/pages/client/products/list/client_products_list_page.dart';
+import './src/pages/delivery/orders/list/delivery_orders_list_page.dart';
+import './src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 
 import './src/models/user.dart';
 
@@ -34,12 +37,25 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Delivery Udemy",
-      initialRoute: userSession.id != null ? "/home" : "/",
+      initialRoute: userSession.id != null
+          ? userSession.roles!.length > 1
+              ? "/roles"
+              : "/client/products/list"
+          : "/",
       getPages: [
         GetPage(name: "/", page: () => LoginPage()),
         GetPage(name: "/register", page: () => RegisterPage()),
         GetPage(name: "/home", page: () => HomePage()),
         GetPage(name: "/roles", page: () => RolesPage()),
+        GetPage(
+            name: "/restaurant/orders/list",
+            page: () => RestaurantOrdersListPage()),
+        GetPage(
+            name: "/client/products/list",
+            page: () => ClientProductsListPage()),
+        GetPage(
+            name: "/delivery/orders/list",
+            page: () => DeliveryOrdersListPage()),
       ],
       navigatorKey: Get.key,
       theme: ThemeData(
