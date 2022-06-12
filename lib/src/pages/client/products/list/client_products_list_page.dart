@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_delivery/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:flutter_app_delivery/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:get/get.dart';
+
 import '../../../../../src/pages/client/products/list/client_products_list_controller.dart';
 import '../../../../../src/utils/custom_animated_bottom_bar.dart';
+import '../../../../../src/pages/client/profile/info/client_profile_info_page.dart';
 
 class ClientProductsListPage extends StatelessWidget {
   ClientProductsListPage({Key? key}) : super(key: key);
@@ -19,7 +21,11 @@ class ClientProductsListPage extends StatelessWidget {
         body: Obx(
           () => IndexedStack(
             index: con.indexTab.value,
-            children: [RestaurantOrdersListPage(), DeliveryOrdersListPage()],
+            children: [
+              RestaurantOrdersListPage(),
+              DeliveryOrdersListPage(),
+              ClientProfileInfoPage()
+            ],
           ),
         ));
   }
@@ -42,7 +48,7 @@ class ClientProductsListPage extends StatelessWidget {
               inactiveColor: Colors.black),
           BottomNavyBarItem(
               icon: const Icon(Icons.list),
-              title: const Text("Pedidos"),
+              title: const Text("Mis pedidos"),
               activeColor: Colors.white,
               inactiveColor: Colors.black),
           BottomNavyBarItem(
