@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +21,7 @@ class ClientProfileInfoPage extends StatelessWidget {
             _backgraundCover(context),
             _boxForm(context),
             _imagenUser(context),
+            _SignOut()
           ],
         ));
   }
@@ -60,7 +61,7 @@ class ClientProfileInfoPage extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
-          onPressed: () => con.test(),
+          onPressed: () {},
           child: const Text(
             "Actualizar datos",
             style: TextStyle(color: Colors.black),
@@ -114,5 +115,21 @@ class ClientProfileInfoPage extends StatelessWidget {
         subtitle: const Text(
           "Celular",
         ));
+  }
+
+  Widget _SignOut() {
+    return SafeArea(
+        child: Container(
+      margin: const EdgeInsets.only(right: 15),
+      alignment: Alignment.topRight,
+      child: IconButton(
+        onPressed: () => con.logOut(),
+        icon: const Icon(
+          Icons.power_settings_new,
+          color: Colors.white,
+          size: 40,
+        ),
+      ),
+    ));
   }
 }

@@ -5,7 +5,8 @@ import 'package:get_storage/get_storage.dart';
 class ClientProfileInfoController extends GetxController {
   User user = User.fromJson(GetStorage().read("user"));
 
-  void test() {
-    print(user.toJson());
+  void logOut() {
+    GetStorage().remove("user");
+    Get.offNamedUntil('/', (route) => false); //elimina el hitorial de pantallas
   }
 }
