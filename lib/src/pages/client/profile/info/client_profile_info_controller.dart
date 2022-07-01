@@ -9,4 +9,8 @@ class ClientProfileInfoController extends GetxController {
     GetStorage().remove("user");
     Get.offNamedUntil('/', (route) => false); //elimina el hitorial de pantallas
   }
+
+  void goToUpdateProfile() {
+    Get.toNamed("/client/profile/update");
+  }
 }

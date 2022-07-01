@@ -61,7 +61,7 @@ class ClientProfileInfoPage extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () => con.goToUpdateProfile(),
           child: const Text(
             "Actualizar datos",
             style: TextStyle(color: Colors.black),

@@ -10,7 +10,7 @@ import './src/pages/client/products/list/client_products_list_page.dart';
 import './src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import './src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import './src/pages/client/profile/info/client_profile_info_page.dart';
-
+import './src/pages/client/profile/update/client_profile_update_page.dart';
 
 import './src/models/user.dart';
 
@@ -59,8 +59,10 @@ class _MyAppState extends State<MyApp> {
             name: "/delivery/orders/list",
             page: () => DeliveryOrdersListPage()),
         GetPage(
-            name: "/client/profile/info",
-            page: () => ClientProfileInfoPage()),
+            name: "/client/profile/info", page: () => ClientProfileInfoPage()),
+        GetPage(
+            name: "/client/profile/update",
+            page: () => ClientProfileUpdatePage()),
       ],
       navigatorKey: Get.key,
       theme: ThemeData(
