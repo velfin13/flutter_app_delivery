@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app_delivery/src/models/response_api.dart';
 import 'package:flutter_app_delivery/src/models/user.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import '../../../src/providers/usersProviders.dart';
 import 'package:get/get.dart';
 
@@ -15,13 +16,16 @@ class LoginController extends GetxController {
     Get.toNamed("/register");
   }
 
-  void login() async {
+  void login(BuildContext context) async {
     String email = emailControler.text.trim();
     String password = passwordControler.text.trim();
 
     if (isValidForm(email, password)) {
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 100, msg: "Autenticando ..");
       ResponseApi responseApi = await userProviders.login(email, password);
       if (responseApi.success == true) {
+        progressDialog.close();
         GetStorage().write("user", responseApi.data);
         User userSession = User.fromJson(GetStorage().read("user") ?? {});
 
@@ -32,6 +36,7 @@ class LoginController extends GetxController {
         }
       } else {
         Get.snackbar("Error de login", responseApi.message ?? "");
+        progressDialog.close();
       }
     }
   }

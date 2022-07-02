@@ -32,7 +32,7 @@ class RegisterController extends GetxController {
     if (isValidForm(
         email, nombre, apellido, telefono, password, confirmPassword)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: "Rgeistrando ..");
+      progressDialog.show(max: 100, msg: "Registrando ..");
 
       User user = User(
           email: email,

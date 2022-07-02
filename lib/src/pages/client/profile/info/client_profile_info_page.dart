@@ -15,15 +15,15 @@ class ClientProfileInfoPage extends StatelessWidget {
         bottomNavigationBar: Container(
           height: 50,
         ),
-        body: Stack(
-          //El STACK Posisiona elementos uno encima del otro
-          children: [
-            _backgraundCover(context),
-            _boxForm(context),
-            _imagenUser(context),
-            _SignOut()
-          ],
-        ));
+        body: Obx(() => Stack(
+              //El STACK Posisiona elementos uno encima del otro
+              children: [
+                _backgraundCover(context),
+                _boxForm(context),
+                _imagenUser(context),
+                _SignOut()
+              ],
+            )));
   }
 
   Widget _backgraundCover(BuildContext context) {
@@ -75,8 +75,8 @@ class ClientProfileInfoPage extends StatelessWidget {
       margin: const EdgeInsets.only(top: 25),
       alignment: Alignment.topCenter,
       child: CircleAvatar(
-        backgroundImage: con.user.image != null
-            ? NetworkImage(con.user.image!)
+        backgroundImage: con.user.value.image != null
+            ? NetworkImage(con.user.value.image!)
             : const AssetImage("assets/img/user_profile.png") as ImageProvider,
         radius: 60,
         backgroundColor: Colors.white,
@@ -90,7 +90,7 @@ class ClientProfileInfoPage extends StatelessWidget {
       child: ListTile(
           leading: const Icon(Icons.person),
           title: Text(
-            "${con.user.name ?? ""} ${con.user.lastname ?? ""}",
+            "${con.user.value.name ?? ""} ${con.user.value.lastname ?? ""}",
             style: const TextStyle(color: Colors.black),
           ),
           subtitle: const Text(
@@ -102,7 +102,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _textEmail() {
     return ListTile(
         leading: const Icon(Icons.email),
-        title: Text(con.user.email ?? ""),
+        title: Text(con.user.value.email ?? ""),
         subtitle: const Text(
           "Email",
         ));
@@ -111,7 +111,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _textPhone() {
     return ListTile(
         leading: const Icon(Icons.phone),
-        title: Text(con.user.phone ?? ""),
+        title: Text(con.user.value.phone ?? ""),
         subtitle: const Text(
           "Celular",
         ));

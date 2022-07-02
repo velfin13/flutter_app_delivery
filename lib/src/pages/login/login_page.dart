@@ -62,7 +62,7 @@ class LoginPage extends StatelessWidget {
             _textYourInfo(),
             _textFielEmail(),
             _textFielPassword(),
-            _buttonLogin()
+            _buttonLogin(context)
           ],
         )));
   }
@@ -93,12 +93,12 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buttonLogin() {
+  Widget _buttonLogin(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: ElevatedButton(
-          onPressed: () => con.login(),
+          onPressed: () => con.login(context),
           child: const Text(
             "Login",
             style: TextStyle(color: Colors.black),

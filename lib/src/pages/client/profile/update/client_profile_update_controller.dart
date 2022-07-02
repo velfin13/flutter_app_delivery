@@ -1,13 +1,22 @@
+// ignore_for_file: avoid_single_cascade_in_expression_statements
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app_delivery/src/models/response_api.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 import '../../../../../src/models/user.dart';
+import '../../../../../src/providers/usersProviders.dart';
+import '../../../../../src/pages/client/profile/info/client_profile_info_controller.dart';
 
 class ClientProfileUpdateController extends GetxController {
   User user = User.fromJson(GetStorage().read("user"));
+  UserProviders userProviders = UserProviders();
+  ClientProfileInfoController clientProfileInfoController = Get.find();
 
   TextEditingController nombreControler = TextEditingController();
   TextEditingController apellidoControler = TextEditingController();
@@ -23,11 +32,6 @@ class ClientProfileUpdateController extends GetxController {
   }
 
   bool isValidForm(String nombre, String apellido, String telefono) {
-    if (imageFile == null) {
-      Get.snackbar("Formulario no valido", "Debes seleccionar una imagen");
-      return false;
-    }
-
     if (nombre.isEmpty) {
       Get.snackbar("Formulario no valido", "El Nombre es requrido");
       return false;
@@ -54,20 +58,38 @@ class ClientProfileUpdateController extends GetxController {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: "Actualizando ..");
 
-      User myUser =
-          User(id: user.id, name: nombre, lastname: apellido, phone: telefono);
+      User myUser = User(
+          id: user.id,
+          name: nombre,
+          lastname: apellido,
+          phone: telefono,
+          sesion_token: user.sesion_token);
 
-      // Stream stream = await userProviders.createWithImage(user, imageFile!);
-      // stream.listen((res) {
-      //   progressDialog.close();
-      //   ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
-      //   if (responseApi.success == true) {
-      //     GetStorage().write("user", responseApi.data);
-      //     goToClientProductListPage();
-      //   } else {
-      //     Get.snackbar("Error", "Error al crear usuario");
-      //   }
-      // });
+      if (imageFile == null) {
+        ResponseApi responseApi = await userProviders.update(myUser);
+        if (responseApi.success == true) {
+          GetStorage().write("user", responseApi.data);
+          clientProfileInfoController.user.value =
+              User.fromJson(GetStorage().read("user"));
+          Get.snackbar("Editado!", "Usuario actualizado con exito");
+        }
+        progressDialog.close();
+      } else {
+        Stream stream = await userProviders.updateWithImage(myUser, imageFile!);
+        stream.listen((res) {
+          progressDialog.close();
+          ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
+          Get.snackbar("Editado", "Usuario actualizado");
+          if (responseApi.success == true) {
+            GetStorage().write("user", responseApi.data);
+            clientProfileInfoController.user.value =
+                User.fromJson(GetStorage().read("user"));
+            Get.snackbar("Editado!", "Usuario actualizado con exito");
+          } else {
+            Get.snackbar("Error", "Error al crear usuario");
+          }
+        });
+      }
     }
   }
 
