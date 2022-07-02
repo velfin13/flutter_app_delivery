@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'dart:io';
 import 'dart:core';
 import 'dart:convert';
@@ -11,6 +12,8 @@ import '../../src/models/response_api.dart';
 
 class UserProviders extends GetConnect {
   String url = Environment.API_URL + "/api/users";
+
+  User userSession = User.fromJson(GetStorage().read('user'));
 
   Future<ResponseApi> login(String email, String password) async {
     Response response = await post(
@@ -43,10 +46,17 @@ class UserProviders extends GetConnect {
 
   //sin imagen
   Future<ResponseApi> update(User user) async {
-    Response response = await put("$url/update", user.toJson(),
-        headers: {'Content-Type': 'application/json'});
+    Response response = await put("$url/update", user.toJson(), headers: {
+      'Content-Type': 'application/json',
+      'Authorization': userSession.sesion_token ?? ''
+    });
     if (response.body == null) {
       Get.snackbar("Error", "No se pudo actualizar!!");
+      return ResponseApi();
+    }
+
+    if (response.statusCode == 401) {
+      Get.snackbar("Error", "No tienes permiso para ejecutar esta acción");
       return ResponseApi();
     }
 
@@ -58,6 +68,7 @@ class UserProviders extends GetConnect {
   Future<Stream> updateWithImage(User user, File imagen) async {
     Uri uri = Uri.http(Environment.API_URL_OLD, "/api/users/updatewithimage");
     final request = http.MultipartRequest('PUT', uri);
+    request.headers['Authorization'] = userSession.sesion_token ?? '';
     request.files.add(http.MultipartFile('image',
         http.ByteStream(imagen.openRead().cast()), await imagen.length(),
         filename: basename(imagen.path)));
